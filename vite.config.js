@@ -29,27 +29,27 @@ server: {
   https:false,
   proxy: {
     '/getSecondData': {
-        target: 'http://localhost:8080/',
+        target: 'http://localhost:6024/',
         changeOrigin:true
     },
     '/getPortfolioInfo': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:6024/',
       changeOrigin:true
     },
     '/getSelectPortfolioInfo': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:6024/',
       changeOrigin:true
     },
     '/getPortfolioBought': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:6024/',
       changeOrigin:true
     },
     '/getSectorInfo': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:6024/',
       changeOrigin:true
     },
     '/getCScoreRank': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:6024/',
       changeOrigin:true
     }
   }
