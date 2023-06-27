@@ -40,7 +40,7 @@ export default {
   methods: {
     rowClassName({row}) {
       if (row.highLimitFlag>0) {
-          return 'row-yellow'
+          return 'row-purple'
       }
     },
     getNowDate() {

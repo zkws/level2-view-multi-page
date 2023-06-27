@@ -11,7 +11,8 @@ export default {
         //   stkCode: "600000",
         //   stkName: "浦发银行",
         //   orderBSRate: "10%",
-        //   compositeScore:3.2
+        //   compositeScore:3.2,
+        //   highLimitFlag:"1"
         // }
         // {
         //   id: 10001,
@@ -44,6 +45,9 @@ export default {
   },
   methods: {
     rowClassName({row}) {
+      if (row.highLimitFlag>0) {
+          return 'row-purple'
+      }
       if (row.compositeScore>=2) {
           return 'row-red'
       }
@@ -137,6 +141,7 @@ export default {
       <vxe-table-column field="middlertn" sortable title="中期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="longrtn" sortable title="长期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="product" sortable title="主要产品" width="200"></vxe-table-column>
+      <vxe-table-column field="highLimitFlag" sortable title="涨停标志"></vxe-table-column>
     </vxe-table>
   </div>
 </template>
