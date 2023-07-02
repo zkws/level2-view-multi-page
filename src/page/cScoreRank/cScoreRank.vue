@@ -116,6 +116,7 @@ export default {
     <vxe-button @click="getCScoreRank()" status="primary" content="更新" style="width: 80px;"></vxe-button>
     <vxe-button @click="setHighLimit()" status="primary" content="显示涨停" style="left:20px;"></vxe-button>
     <!-- <button @click="getCScoreRank()" style="width: 50px;">更新</button> -->
+    
     <p>更新时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{updateTime}}</p>
     <p>是否显示涨停&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{showHighLimit}}</p>
     <vxe-table 
