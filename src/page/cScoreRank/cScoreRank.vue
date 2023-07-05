@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted() {
-    this.showHighLimit = "not-show"
+    this.showHighLimit = "不计入"
     this.getCScoreRank();
     this.timer = setInterval(this.getCScoreRank, 60000)
     this.getNowDate()
@@ -75,21 +75,28 @@ export default {
       this.updateTime =  year + "-" + month + "-" + day + " " + hour + sign2 + minutes + sign2 + seconds;
     },
     setHighLimit() {
-           if (this.showHighLimit=="show") {
-            this.showHighLimit="not-show";
+           if (this.showHighLimit=="计入") {
+            this.showHighLimit="不计入";
             this.getCScoreRank();
            }
            else{
-            this.showHighLimit="show";
+            this.showHighLimit="计入";
             this.getCScoreRank();
            }  
     },
     getCScoreRank(){
+      var rankValue = null;
+      if(this.showHighLimit=="不计入"){
+        rankValue="not-show";
+      }
+      else{
+        rankValue="show";
+      }
       axios({
         method:'post',
         url:'/getCScoreRank',
         params:{
-          rank:this.showHighLimit
+          rank:rankValue
         }
       }).then(response => {
         console.log(response.data)
@@ -114,11 +121,11 @@ export default {
 <template>
   <div style="width: 1500px;">
     <vxe-button @click="getCScoreRank()" status="primary" content="更新" style="width: 80px;"></vxe-button>
-    <vxe-button @click="setHighLimit()" status="primary" content="显示涨停" style="left:20px;"></vxe-button>
+    <vxe-button @click="setHighLimit()" status="primary" content="计入涨停" style="left:20px;"></vxe-button>
     <!-- <button @click="getCScoreRank()" style="width: 50px;">更新</button> -->
     
     <p>更新时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{updateTime}}</p>
-    <p>是否显示涨停&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{showHighLimit}}</p>
+    <p>是否计入涨停&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{showHighLimit}}</p>
     <vxe-table 
     class="mytable-style"
     border="full" 
