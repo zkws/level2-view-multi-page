@@ -136,8 +136,8 @@ export default {
       <vxe-table-column field="stkName" sortable title="股票名称"></vxe-table-column>
       <vxe-table-column field="sw3Code" sortable title="三级行业代码"></vxe-table-column>
       <vxe-table-column field="sw3Name" sortable title="三级行业名称"></vxe-table-column>
-      <vxe-table-column field="compositeScoreAvg" sortable title="综合得分" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="compositeScoreRankAvg" sortable title="综合得分排名" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="compositeScoreAvg" sortable title="得分均值" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="compositeScoreRankAvg" sortable title="排名均值" sort-type="number"></vxe-table-column>
       <vxe-table-column field="weightedOrderBSRateAvg" sortable title="加权压托比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="transBsRateAvg" sortable title="买卖比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="showCount" sortable title="出现次数" sort-type="number"></vxe-table-column>
@@ -145,7 +145,7 @@ export default {
       <vxe-table-column field="middlertn" sortable title="中期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="longrtn" sortable title="长期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="product" sortable title="主要产品" width="200"></vxe-table-column>
-      <vxe-table-column field="highLimitFlag" sortable title="涨停标志"></vxe-table-column>
+      <vxe-table-column field="highLimitFlag" sortable title="当日涨停标志"></vxe-table-column>
       <!-- <vxe-table-column field="lowLimitFlag" sortable title="跌停标志" width="200"></vxe-table-column> -->
     </vxe-table>
   </div>
