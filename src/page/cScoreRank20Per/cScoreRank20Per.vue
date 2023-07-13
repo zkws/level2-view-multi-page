@@ -97,8 +97,7 @@ export default {
         url:'/getCScoreRank',
         params:{
           rank:rankValue,
-          table_name:"all"
-
+          table_name:"20Per"
         }
       }).then(response => {
         console.log(response.data)

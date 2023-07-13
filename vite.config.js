@@ -19,7 +19,8 @@ export default defineConfig({
           sector_class1: resolve(__dirname, 'sector_class1/index.html'),
           sector_class2: resolve(__dirname, 'sector_class2/index.html'),
           sector_class3: resolve(__dirname, 'sector_class3/index.html'),
-          cScoreRank: resolve(__dirname, 'cScoreRank/index.html')
+          cScoreRank: resolve(__dirname, 'cScoreRank/index.html'),
+          cScoreRank20Per: resolve(__dirname, 'cScoreRank20Per/index.html')
        }
     }
  },
