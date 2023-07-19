@@ -124,8 +124,8 @@ export default {
       <vxe-table-column field="stkName" sortable title="股票名称"></vxe-table-column>
       <vxe-table-column field="sw3Code" sortable title="三级行业代码"></vxe-table-column>
       <vxe-table-column field="sw3Name" sortable title="三级行业名称"></vxe-table-column>
-      <!-- <vxe-table-column field="rankNum" sortable title="行业内相对排名"></vxe-table-column>
-      <vxe-table-column field="rankWeight" sortable title="行业内权重"></vxe-table-column> -->
+      <vxe-table-column field="rankNum" sortable title="行业内相对排名" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="rankWeight" sortable title="行业内权重" sort-type="number"></vxe-table-column>
       <vxe-table-column field="orderBSRate" sortable title="压托比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="weightedOrderBSRate" sortable title="加权压托比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="transBsRate" sortable title="买卖比" sort-type="number"></vxe-table-column>

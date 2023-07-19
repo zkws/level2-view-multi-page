@@ -121,7 +121,7 @@ export default {
 
 </script>
 <template>
-  <div style="width: 1500px;">
+  <div style="width: 2000px;">
     <vxe-button @click="getCScoreRank()" status="primary" content="更新" style="width: 80px;"></vxe-button>
     <vxe-button @click="setHighLimit()" status="primary" content="计入涨停" style="left:20px;"></vxe-button>
     <!-- <button @click="getCScoreRank()" style="width: 50px;">更新</button> -->
@@ -138,6 +138,8 @@ export default {
       <vxe-table-column field="stkName" sortable title="股票名称"></vxe-table-column>
       <vxe-table-column field="sw3Code" sortable title="三级行业代码"></vxe-table-column>
       <vxe-table-column field="sw3Name" sortable title="三级行业名称"></vxe-table-column>
+      <vxe-table-column field="rankNum" sortable title="行业内相对排名" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="rankWeight" sortable title="行业内权重" sort-type="number"></vxe-table-column>
       <vxe-table-column field="compositeScoreAvg" sortable title="得分均值" sort-type="number"></vxe-table-column>
       <vxe-table-column field="compositeScoreRankAvg" sortable title="排名均值" sort-type="number"></vxe-table-column>
       <vxe-table-column field="weightedOrderBSRateAvg" sortable title="加权压托比" sort-type="number"></vxe-table-column>
