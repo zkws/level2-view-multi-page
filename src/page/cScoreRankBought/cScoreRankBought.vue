@@ -11,21 +11,21 @@ export default {
         //   id: 10001,
         //   stkCode: "600000",
         //   stkName: "浦发银行",
-        //   orderBSRate: "10%",
+        //   rankWeight: "10%",
         //   highLimitFlag:"1"
         // },
         // {
         //   id: 10002,
         //   stkCode: "600030",
         //   stkName: "中信证券",
-        //   orderBSRate: "11%",
+        //   rankWeight: "11%",
         //   highLimitFlag:"0"
         // },
         // {
         //   id: 10003,
         //   stkCode: "600036",
         //   stkName: "招商银行",
-        //   orderBSRate: "12%"
+        //   rankWeight: "12%"
         // }
       ]
     }
@@ -40,9 +40,17 @@ export default {
     clearInterval(this.timer);
   },
   methods: {
+    cellStyle({row, column}) {
+      // console.log(row.rankWeight)
+    },
     rowClassName({row}) {
       if (row.highLimitFlag>0) {
           return 'row-purple'
+      }
+    },
+    getFieldMaxValue(responseData){
+      for(var i = 0; i < responseData.length; i++) {
+        // console.log(responseData[i].stkName);
       }
     },
     getNowDate() {
@@ -97,12 +105,14 @@ export default {
         url:'/getCScoreRank',
         params:{
           rank:rankValue,
-          table_name:"bought"
+          table_name:"bought",
+          short_flag:"show"
         }
       }).then(response => {
         console.log(response.data)
         this.tableData = response.data
         this.getNowDate()
+        // this.getFieldMaxValue(response.data)
         // this.tableData[0].stock_name="moooo"
         // console.log(this.tableData[0].stock_name)
       })
@@ -131,6 +141,7 @@ export default {
     class="mytable-style"
     border="full" 
     :data="tableData"
+    :cell-style="cellStyle"
     :row-class-name="rowClassName">
       <vxe-table-column type="seq" width="60" title="序号"></vxe-table-column>
       <vxe-table-column field="stkCode" sortable title="股票代码"></vxe-table-column>
