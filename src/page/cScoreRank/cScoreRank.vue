@@ -35,6 +35,7 @@ function getColorByNumber(n,min,max,orderType) {
       g = 255;
       b = 255;
     }else{
+      //数值越大越有利
       if(orderType=="asc"){
         if (n-min< halfMax) {
           // 比例小于halfMax的时候红色是越来越多的,直到红色为255时(红+绿)变为黄色.
@@ -47,6 +48,7 @@ function getColorByNumber(n,min,max,orderType) {
           r = 255;
         }
       }
+      //数值越小越有利
       if(orderType=="desc"){
         if (n-min< halfMax) {
         // 比例小于halfMax的时候绿色是越来越少的,直到0 变为纯红.
@@ -89,11 +91,21 @@ export default {
       shortrtnMax:0,
       middlertnMax:0,
       longrtnMax:0,
+      compositeScoreRankAvgMax:0,
+      weightedOrderBSRateAvgMax:0,
+      transBsRateAvgMax:0,
+      sdRateMax:0,
+      compositeScoreAvgMax:0,
       rankWeightMin:0,
       showCountMin:0,
       shortrtnMin:0,
       middlertnMin:0,
       longrtnMin:0,
+      compositeScoreRankAvgMin:0,
+      weightedOrderBSRateAvgMin:0,
+      transBsRateAvgMin:0,
+      sdRateMin:0,
+      compositeScoreAvgMin:0,
       tableData: [
         // {
         //   id: 10001,
@@ -158,6 +170,31 @@ export default {
               backgroundColor: getColorByNumber(row.longrtn,this.longrtnMin,this.longrtnMax,"desc"),
               color: '＃C0C0C0'
           };
+        case "compositeScoreRankAvg":
+          return {
+              backgroundColor: getColorByNumber(row.compositeScoreRankAvg,this.compositeScoreRankAvgMin,this.compositeScoreRankAvgMax,"desc"),
+              color: '＃C0C0C0'
+          };  
+        case "weightedOrderBSRateAvg":
+          return {
+              backgroundColor: getColorByNumber(row.weightedOrderBSRateAvg,this.weightedOrderBSRateAvgMin,this.weightedOrderBSRateAvgMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "transBsRateAvg":
+          return {
+              backgroundColor: getColorByNumber(row.transBsRateAvg,this.transBsRateAvgMin,this.transBsRateAvgMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "sdRate":
+          return {
+              backgroundColor: getColorByNumber(row.sdRate,this.sdRateMin,this.sdRateMax,"desc"),
+              color: '＃C0C0C0'
+          };
+        case "compositeScoreAvg":
+          return {
+              backgroundColor: getColorByNumber(row.compositeScoreAvg,this.compositeScoreAvgMin,this.compositeScoreAvgMax,"asc"),
+              color: '＃C0C0C0'
+          };
       }
     },
     getFieldMaxValue(responseData){
@@ -166,6 +203,11 @@ export default {
       var shortrtnList=[]
       var middlertnList=[]
       var longrtnList=[]
+      var compositeScoreRankAvgList=[]
+      var weightedOrderBSRateAvgList=[]
+      var transBsRateAvgList=[]
+      var sdRateList=[]
+      var compositeScoreAvgList=[]
       for(var i = 0; i < responseData.length; i++) {
         if(responseData[i].rankWeight!=null){
           rankWeightList.push(parseFloat(responseData[i].rankWeight));
@@ -182,6 +224,21 @@ export default {
         if(responseData[i].longrtn!=null&&responseData[i].longrtn!="暂无数据"){
           longrtnList.push(parseFloat(responseData[i].longrtn));
         }
+        if(responseData[i].compositeScoreRankAvg!=null){
+          compositeScoreRankAvgList.push(parseFloat(responseData[i].compositeScoreRankAvg));
+        }
+        if(responseData[i].weightedOrderBSRateAvg!=null){
+          weightedOrderBSRateAvgList.push(parseFloat(responseData[i].weightedOrderBSRateAvg));
+        }
+        if(responseData[i].transBsRateAvg!=null){
+          transBsRateAvgList.push(parseFloat(responseData[i].transBsRateAvg));
+        }
+        if(responseData[i].sdRate!=null){
+          sdRateList.push(parseFloat(responseData[i].sdRate));
+        }
+        if(responseData[i].compositeScoreAvg!=null){
+          compositeScoreAvgList.push(parseFloat(responseData[i].compositeScoreAvg));
+        }
       }
       // console.log(rankWeightList)
       this.rankWeightMax=Math.max.apply(null, rankWeightList);
@@ -189,11 +246,21 @@ export default {
       this.shortrtnMax=Math.max.apply(null, shortrtnList);
       this.middlertnMax=Math.max.apply(null, middlertnList);
       this.longrtnMax=Math.max.apply(null, longrtnList);
+      this.compositeScoreRankAvgMax=Math.max.apply(null, compositeScoreRankAvgList);
+      this.weightedOrderBSRateAvgMax=Math.max.apply(null, weightedOrderBSRateAvgList);
+      this.transBsRateAvgMax=Math.max.apply(null, transBsRateAvgList);
+      this.sdRateMax=Math.max.apply(null, sdRateList);
+      this.compositeScoreAvgMax=Math.max.apply(null, compositeScoreAvgList);
       this.rankWeightMin=Math.min.apply(null, rankWeightList);
       this.showCountMin=Math.min.apply(null, showCountList);
       this.shortrtnMin=Math.min.apply(null, shortrtnList);
       this.middlertnMin=Math.min.apply(null, middlertnList);
       this.longrtnMin=Math.min.apply(null, longrtnList);
+      this.compositeScoreRankAvgMin=Math.min.apply(null, compositeScoreRankAvgList);
+      this.weightedOrderBSRateAvgMin=Math.min.apply(null, weightedOrderBSRateAvgList);
+      this.transBsRateAvgMin=Math.min.apply(null, transBsRateAvgList);
+      this.sdRateMin=Math.min.apply(null, sdRateList);
+      this.compositeScoreAvgMin=Math.min.apply(null, compositeScoreAvgList);
       // console.log(this.rankWeightMin)
       // console.log(this.showCountMin)
       // console.log(this.shortrtnMin)
@@ -296,7 +363,7 @@ export default {
       })
     },
     formatterNum ({ cellValue }) {
-      return cellValue=="暂无数据"?cellValue:cellValue+"%"
+      return cellValue=="暂无数据"||cellValue==null?"暂无数据":cellValue+"%"
     } 
      
   }
@@ -332,6 +399,7 @@ export default {
       <vxe-table-column field="weightedOrderBSRateAvg" sortable title="加权压托比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="transBsRateAvg" sortable title="买卖比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="showCount" sortable title="出现次数" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="sdRate" sortable title="当日涨跌幅" :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="shortrtn" sortable title="短期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="middlertn" sortable title="中期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="longrtn" sortable title="长期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
