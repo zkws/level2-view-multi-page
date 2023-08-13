@@ -326,7 +326,7 @@ export default {
       }
       axios({
         method:'post',
-        url:'/getCScoreRank',
+        url:'/getCScoreRankInScope',
         params:{
           rank:rankValue,
           table_name:"bought",

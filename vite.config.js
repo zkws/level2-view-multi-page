@@ -54,6 +54,10 @@ server: {
     '/getCScoreRank': {
       target: 'http://localhost:6024/',
       changeOrigin:true
+    },
+    '/getCScoreRankInScope': {
+      target: 'http://localhost:6024/',
+      changeOrigin:true
     }
   }
   // proxy: {
