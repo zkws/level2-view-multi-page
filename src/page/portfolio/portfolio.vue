@@ -217,22 +217,22 @@ export default {
         if(responseData[i].rankWeight!=null){
           rankWeightList.push(parseFloat(responseData[i].rankWeight));
         }
-        if(responseData[i].orderBSRate!=null){
+        if(responseData[i].orderBSRate!=null&&responseData[i].orderBSRate.trim().length>0){
           orderBSRateList.push(parseFloat(responseData[i].orderBSRate));
         }
-        if(responseData[i].weightedOrderBSRate!=null){
+        if(responseData[i].weightedOrderBSRate!=null&&responseData[i].weightedOrderBSRate.trim().length>0){
           weightedOrderBSRateList.push(parseFloat(responseData[i].weightedOrderBSRate));
         }
-        if(responseData[i].transBsRate!=null){
+        if(responseData[i].transBsRate!=null&&responseData[i].transBsRate.trim().length>0){
           transBsRateList.push(parseFloat(responseData[i].transBsRate));
         }
-        if(responseData[i].compositeScore!=null){
+        if(responseData[i].compositeScore!=null&&responseData[i].compositeScore.trim().length>0){
           compositeScoreList.push(parseFloat(responseData[i].compositeScore));
         }
-        if(responseData[i].orderBSRateM5!=null){
+        if(responseData[i].orderBSRateM5!=null&&responseData[i].orderBSRateM5.trim().length>0){
           orderBSRateM5List.push(parseFloat(responseData[i].orderBSRateM5));
         }
-        if(responseData[i].sdRate!=null){
+        if(responseData[i].sdRate!=null&&responseData[i].sdRate.trim().length>0&&responseData[i].sdRate!="暂无数据"){
           sdRateList.push(parseFloat(responseData[i].sdRate));
         }
         if(responseData[i].shortrtn!=null&&responseData[i].shortrtn!="暂无数据"){
@@ -250,6 +250,7 @@ export default {
      
       this.rankWeightMax=Math.max.apply(null, rankWeightList);
       this.orderBSRateMax=Math.max.apply(null, orderBSRateList);
+      // console.log(this.orderBSRateMax);
       this.weightedOrderBSRateMax=Math.max.apply(null, weightedOrderBSRateList);
       this.transBsRateMax=Math.max.apply(null, transBsRateList);
       this.compositeScoreMax=Math.max.apply(null, compositeScoreList);
@@ -261,6 +262,7 @@ export default {
       
       this.rankWeightMin=Math.min.apply(null, rankWeightList);
       this.orderBSRateMin=Math.min.apply(null, orderBSRateList);
+      // console.log(this.orderBSRateMin);
       this.weightedOrderBSRateMin=Math.min.apply(null, weightedOrderBSRateList);
       this.transBsRateMin=Math.min.apply(null, transBsRateList);
       this.compositeScoreMin=Math.min.apply(null, compositeScoreList);
