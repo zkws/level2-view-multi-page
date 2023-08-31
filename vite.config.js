@@ -22,7 +22,8 @@ export default defineConfig({
           cScoreRank: resolve(__dirname, 'cScoreRank/index.html'),
           cScoreRank20Per: resolve(__dirname, 'cScoreRank20Per/index.html'),
           cScoreRankBought: resolve(__dirname, 'cScoreRankBought/index.html'),
-          cScoreRankSelected: resolve(__dirname, 'cScoreRankSelected/index.html')
+          cScoreRankSelected: resolve(__dirname, 'cScoreRankSelected/index.html'),
+          cScoreRankTail: resolve(__dirname, 'cScoreRankTail/index.html')
        }
     }
  },
@@ -56,6 +57,10 @@ server: {
       changeOrigin:true
     },
     '/getCScoreRankInScope': {
+      target: 'http://localhost:6024/',
+      changeOrigin:true
+    },
+    '/getCScoreRankTail': {
       target: 'http://localhost:6024/',
       changeOrigin:true
     }
