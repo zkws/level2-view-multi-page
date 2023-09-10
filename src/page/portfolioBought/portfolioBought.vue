@@ -89,6 +89,7 @@ export default {
       transBsRateMax:0,
       compositeScoreMax:0,
       orderBSRateM5Max:0,
+      bounceRateMax:0,
       sdRateMax:0,
       shortrtnMax:0,
       middlertnMax:0,
@@ -99,6 +100,7 @@ export default {
       transBsRateMin:0,
       compositeScoreMin:0,
       orderBSRateM5Min:0,
+      bounceRateMin:0,
       sdRateMin:0,
       shortrtnMin:0,
       middlertnMin:0,
@@ -178,6 +180,12 @@ export default {
               backgroundColor: getColorByNumber(row.orderBSRateM5,this.orderBSRateM5Min,this.orderBSRateM5Max,"asc"),
               color: '＃C0C0C0'
           };
+        case "bounceRate":
+          // console.log(getColorByNumber(row.showCount,this.showCountMin,this.showCountMax));
+          return {
+              backgroundColor: getColorByNumber(row.bounceRate,this.bounceRateMin,this.bounceRateMax,"asc"),
+              color: '＃C0C0C0'
+          };  
         case "sdRate":
           return {
               backgroundColor: getColorByNumber(row.sdRate,this.sdRateMin,this.sdRateMax,"desc"),
@@ -207,6 +215,7 @@ export default {
       var transBsRateList=[]
       var compositeScoreList=[]
       var orderBSRateM5List=[]
+      var bounceRateList=[]
       var sdRateList=[]
       var shortrtnList=[]
       var middlertnList=[]
@@ -215,20 +224,23 @@ export default {
         if(responseData[i].rankWeight!=null){
           rankWeightList.push(parseFloat(responseData[i].rankWeight));
         }
-        if(responseData[i].orderBSRate!=null){
+        if(responseData[i].orderBSRate!=null&&responseData[i].orderBSRate.trim().length>0){
           orderBSRateList.push(parseFloat(responseData[i].orderBSRate));
         }
-        if(responseData[i].weightedOrderBSRate!=null){
+        if(responseData[i].weightedOrderBSRate!=null&&responseData[i].weightedOrderBSRate.trim().length>0){
           weightedOrderBSRateList.push(parseFloat(responseData[i].weightedOrderBSRate));
         }
-        if(responseData[i].transBsRate!=null){
+        if(responseData[i].transBsRate!=null&&responseData[i].transBsRate.trim().length>0){
           transBsRateList.push(parseFloat(responseData[i].transBsRate));
         }
-        if(responseData[i].compositeScore!=null){
+        if(responseData[i].compositeScore!=null&&responseData[i].compositeScore.trim().length>0){
           compositeScoreList.push(parseFloat(responseData[i].compositeScore));
         }
-        if(responseData[i].orderBSRateM5!=null){
+        if(responseData[i].orderBSRateM5!=null&&responseData[i].orderBSRateM5.trim().length>0){
           orderBSRateM5List.push(parseFloat(responseData[i].orderBSRateM5));
+        }
+        if(responseData[i].bounceRate!=null&&responseData[i].bounceRate.trim().length>0){
+          bounceRateList.push(parseFloat(responseData[i].bounceRate));
         }
         if(responseData[i].sdRate!=null){
           sdRateList.push(parseFloat(responseData[i].sdRate));
@@ -252,6 +264,7 @@ export default {
       this.transBsRateMax=Math.max.apply(null, transBsRateList);
       this.compositeScoreMax=Math.max.apply(null, compositeScoreList);
       this.orderBSRateM5Max=Math.max.apply(null, orderBSRateM5List);
+      this.bounceRateMax=Math.max.apply(null, bounceRateList);
       this.sdRateMax=Math.max.apply(null, sdRateList);
       this.shortrtnMax=Math.max.apply(null, shortrtnList);
       this.middlertnMax=Math.max.apply(null, middlertnList);
@@ -263,6 +276,7 @@ export default {
       this.transBsRateMin=Math.min.apply(null, transBsRateList);
       this.compositeScoreMin=Math.min.apply(null, compositeScoreList);
       this.orderBSRateM5Min=Math.min.apply(null, orderBSRateM5List);
+      this.bounceRateMin=Math.min.apply(null, bounceRateList);
       this.sdRateMin=Math.min.apply(null, sdRateList);
       this.shortrtnMin=Math.min.apply(null, shortrtnList);
       this.middlertnMin=Math.min.apply(null, middlertnList);
@@ -364,6 +378,7 @@ export default {
       <vxe-table-column field="sOrderLossRate" sortable title="卖单丢单比"></vxe-table-column> -->
       <vxe-table-column field="orderBSRateM5" sortable title="5分钟压托比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="orderBSRateM5Source" sortable title="5分钟压托比正负来源"></vxe-table-column>
+      <vxe-table-column field="bounceRate" sortable title="弹性比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="sdRate" sortable title="当日涨跌幅" :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="shortrtn" sortable title="短期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="middlertn" sortable title="中期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
