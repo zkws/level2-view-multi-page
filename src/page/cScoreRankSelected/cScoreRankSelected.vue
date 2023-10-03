@@ -325,11 +325,12 @@ export default {
       }
       axios({
         method:'post',
-        url:'/getCScoreRankInScope',
+        url:'/getCScoreRankByOverallRating',
         params:{
-          rank:rankValue,
+          high_limit_show:rankValue,
           table_name:"selected",
-          short_flag:"show"
+          short_flag:"show",
+          sort_flag:"top"
         }
       }).then(response => {
         console.log(response.data)

@@ -132,7 +132,7 @@ export default {
   },
   mounted() {
     this.showHighLimit = "不计入"
-    this.showShort = "计入"
+    this.showShort = "不计入"
     this.getCScoreRank();
     this.timer = setInterval(this.getCScoreRank, 60000)
     this.getNowDate()
@@ -343,11 +343,12 @@ export default {
       }
       axios({
         method:'post',
-        url:'/getCScoreRankTail',
+        url:'/getCScoreRankByOverallRating',
         params:{
-          rank:rankValue,
+          high_limit_show:rankValue,
           table_name:"all",
-          short_flag:shortFlag
+          short_flag:shortFlag,
+          sort_flag:"top"
         }
       }).then(response => {
         // console.log(response.data)

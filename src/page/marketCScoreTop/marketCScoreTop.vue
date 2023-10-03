@@ -64,8 +64,6 @@ function getColorByNumber(n,min,max,orderType) {
       }
     }
     
-
-
     r = parseInt(r);// 取整
     g = parseInt(g);// 取整
     b = parseInt(b);// 取整
@@ -80,46 +78,54 @@ function getColorByNumber(n,min,max,orderType) {
     return rgbaToHex("rgb(" + r + "," + g + "," + b + ")");
 }
 
-export default {
+export default { 
   data() {
     return {
       timer:null,
       updateTime:null,
-      showHighLimit:null,
-      rankWeightMax:0,
-      showCountMax:0,
+      // sectorLong:null,
+      rankWeightMax:0,    
+      orderBSRateMax:0,
+      weightedOrderBSRateMax:0,
+      transBsRateMax:0,
+      compositeScoreMax:0,
+      orderBSRateM5Max:0,
+      bounceRateMax:0,
+      sdRateMax:0,
       shortrtnMax:0,
       middlertnMax:0,
       longrtnMax:0,
-      compositeScoreRankAvgMax:0,
-      weightedOrderBSRateAvgMax:0,
-      transBsRateAvgMax:0,
-      sdRateMax:0,
-      compositeScoreAvgMax:0,
-      rankWeightMin:0,
-      showCountMin:0,
+      rankWeightMin:0,    
+      orderBSRateMin:0,
+      weightedOrderBSRateMin:0,
+      transBsRateMin:0,
+      compositeScoreMin:0,
+      orderBSRateM5Min:0,
+      bounceRateMin:0,
+      sdRateMin:0,
       shortrtnMin:0,
       middlertnMin:0,
       longrtnMin:0,
-      compositeScoreRankAvgMin:0,
-      weightedOrderBSRateAvgMin:0,
-      transBsRateAvgMin:0,
-      sdRateMin:0,
-      compositeScoreAvgMin:0,
       tableData: [
         // {
         //   id: 10001,
         //   stkCode: "600000",
         //   stkName: "浦发银行",
         //   orderBSRate: "10%",
-        //   highLimitFlag:"1"
+        //   compositeScore:3.2
         // },
+        // {
+        //   id: 10001,
+        //   stkCode: "600000",
+        //   stkName: "浦发银行",
+        //   orderBSRate: "10%",
+        //   compositeScore:3.0
+        // }
         // {
         //   id: 10002,
         //   stkCode: "600030",
         //   stkName: "中信证券",
-        //   orderBSRate: "11%",
-        //   highLimitFlag:"0"
+        //   orderBSRate: "11%"
         // },
         // {
         //   id: 10003,
@@ -131,10 +137,9 @@ export default {
     }
   },
   mounted() {
-    this.showHighLimit = "不计入"
-    this.showShort = "计入"
-    this.getCScoreRank();
-    this.timer = setInterval(this.getCScoreRank, 60000)
+    // this.sectorLong = "Long"
+    this.getPortfolioInfo()
+    this.timer = setInterval(this.getPortfolioInfo, 20000)
     this.getNowDate()
   },
   beforeDestroy() {
@@ -142,6 +147,7 @@ export default {
   },
   methods: {
     cellStyle({row, column}) {
+      
       switch (column.field) {
         case "rankWeight":
           // console.log(getColorByNumber(row.rankWeight,this.rankWeightMin,this.rankWeightMax));
@@ -149,10 +155,42 @@ export default {
             backgroundColor: getColorByNumber(row.rankWeight,this.rankWeightMin,this.rankWeightMax,"asc"),
             color: '＃C0C0C0'
           };
-        case "showCount":
+        case "orderBSRate":
           // console.log(getColorByNumber(row.showCount,this.showCountMin,this.showCountMax));
           return {
-              backgroundColor: getColorByNumber(row.showCount,this.showCountMin,this.showCountMax,"asc"),
+              backgroundColor: getColorByNumber(row.orderBSRate,this.orderBSRateMin,this.orderBSRateMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "weightedOrderBSRate":
+          return {
+              backgroundColor: getColorByNumber(row.weightedOrderBSRate,this.weightedOrderBSRateMin,this.weightedOrderBSRateMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "transBsRate":
+          return {
+              backgroundColor: getColorByNumber(row.transBsRate,this.transBsRateMin,this.transBsRateMax,"asc"),
+              color: '＃C0C0C0'
+          }; 
+        case "compositeScore":
+          return {
+              backgroundColor: getColorByNumber(row.compositeScore,this.compositeScoreMin,this.compositeScoreMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "orderBSRateM5":
+          // console.log(getColorByNumber(row.showCount,this.showCountMin,this.showCountMax));
+          return {
+              backgroundColor: getColorByNumber(row.orderBSRateM5,this.orderBSRateM5Min,this.orderBSRateM5Max,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "bounceRate":
+          // console.log(getColorByNumber(row.showCount,this.showCountMin,this.showCountMax));
+          return {
+              backgroundColor: getColorByNumber(row.bounceRate,this.bounceRateMin,this.bounceRateMax,"asc"),
+              color: '＃C0C0C0'
+          };
+        case "sdRate":
+          return {
+              backgroundColor: getColorByNumber(row.sdRate,this.sdRateMin,this.sdRateMax,"desc"),
               color: '＃C0C0C0'
           };
         case "shortrtn":
@@ -169,51 +207,45 @@ export default {
           return {
               backgroundColor: getColorByNumber(row.longrtn,this.longrtnMin,this.longrtnMax,"desc"),
               color: '＃C0C0C0'
-          };
-        case "compositeScoreRankAvg":
-          return {
-              backgroundColor: getColorByNumber(row.compositeScoreRankAvg,this.compositeScoreRankAvgMin,this.compositeScoreRankAvgMax,"desc"),
-              color: '＃C0C0C0'
-          };  
-        case "weightedOrderBSRateAvg":
-          return {
-              backgroundColor: getColorByNumber(row.weightedOrderBSRateAvg,this.weightedOrderBSRateAvgMin,this.weightedOrderBSRateAvgMax,"asc"),
-              color: '＃C0C0C0'
-          };
-        case "transBsRateAvg":
-          return {
-              backgroundColor: getColorByNumber(row.transBsRateAvg,this.transBsRateAvgMin,this.transBsRateAvgMax,"asc"),
-              color: '＃C0C0C0'
-          };
-        case "sdRate":
-          return {
-              backgroundColor: getColorByNumber(row.sdRate,this.sdRateMin,this.sdRateMax,"desc"),
-              color: '＃C0C0C0'
-          };
-        case "compositeScoreAvg":
-          return {
-              backgroundColor: getColorByNumber(row.compositeScoreAvg,this.compositeScoreAvgMin,this.compositeScoreAvgMax,"asc"),
-              color: '＃C0C0C0'
-          };
+          };        
       }
     },
     getFieldMaxValue(responseData){
-      var rankWeightList=[]
-      var showCountList=[]
+      var rankWeightList=[]    
+      var orderBSRateList=[]
+      var weightedOrderBSRateList=[]
+      var transBsRateList=[]
+      var compositeScoreList=[]
+      var orderBSRateM5List=[]
+      var bounceRateList=[]
+      var sdRateList=[]
       var shortrtnList=[]
       var middlertnList=[]
       var longrtnList=[]
-      var compositeScoreRankAvgList=[]
-      var weightedOrderBSRateAvgList=[]
-      var transBsRateAvgList=[]
-      var sdRateList=[]
-      var compositeScoreAvgList=[]
       for(var i = 0; i < responseData.length; i++) {
         if(responseData[i].rankWeight!=null){
           rankWeightList.push(parseFloat(responseData[i].rankWeight));
         }
-        if(responseData[i].showCount!=null){
-          showCountList.push(parseFloat(responseData[i].showCount));
+        if(responseData[i].orderBSRate!=null&&responseData[i].orderBSRate.trim().length>0){
+          orderBSRateList.push(parseFloat(responseData[i].orderBSRate));
+        }
+        if(responseData[i].weightedOrderBSRate!=null&&responseData[i].weightedOrderBSRate.trim().length>0){
+          weightedOrderBSRateList.push(parseFloat(responseData[i].weightedOrderBSRate));
+        }
+        if(responseData[i].transBsRate!=null&&responseData[i].transBsRate.trim().length>0){
+          transBsRateList.push(parseFloat(responseData[i].transBsRate));
+        }
+        if(responseData[i].compositeScore!=null&&responseData[i].compositeScore.trim().length>0){
+          compositeScoreList.push(parseFloat(responseData[i].compositeScore));
+        }
+        if(responseData[i].orderBSRateM5!=null&&responseData[i].orderBSRateM5.trim().length>0){
+          orderBSRateM5List.push(parseFloat(responseData[i].orderBSRateM5));
+        }
+        if(responseData[i].bounceRate!=null&&responseData[i].bounceRate.trim().length>0){
+          bounceRateList.push(parseFloat(responseData[i].bounceRate));
+        }
+        if(responseData[i].sdRate!=null&&responseData[i].sdRate.trim().length>0&&responseData[i].sdRate!="暂无数据"){
+          sdRateList.push(parseFloat(responseData[i].sdRate));
         }
         if(responseData[i].shortrtn!=null&&responseData[i].shortrtn!="暂无数据"){
           shortrtnList.push(parseFloat(responseData[i].shortrtn));
@@ -224,57 +256,43 @@ export default {
         if(responseData[i].longrtn!=null&&responseData[i].longrtn!="暂无数据"){
           longrtnList.push(parseFloat(responseData[i].longrtn));
         }
-        if(responseData[i].compositeScoreRankAvg!=null){
-          compositeScoreRankAvgList.push(parseFloat(responseData[i].compositeScoreRankAvg));
-        }
-        if(responseData[i].weightedOrderBSRateAvg!=null){
-          weightedOrderBSRateAvgList.push(parseFloat(responseData[i].weightedOrderBSRateAvg));
-        }
-        if(responseData[i].transBsRateAvg!=null){
-          transBsRateAvgList.push(parseFloat(responseData[i].transBsRateAvg));
-        }
-        if(responseData[i].sdRate!=null){
-          sdRateList.push(parseFloat(responseData[i].sdRate));
-        }
-        if(responseData[i].compositeScoreAvg!=null){
-          compositeScoreAvgList.push(parseFloat(responseData[i].compositeScoreAvg));
-        }
+        
       }
       // console.log(rankWeightList)
+     
       this.rankWeightMax=Math.max.apply(null, rankWeightList);
-      this.showCountMax=Math.max.apply(null, showCountList);
+      this.orderBSRateMax=Math.max.apply(null, orderBSRateList);
+      // console.log(this.orderBSRateMax);
+      this.weightedOrderBSRateMax=Math.max.apply(null, weightedOrderBSRateList);
+      this.transBsRateMax=Math.max.apply(null, transBsRateList);
+      this.compositeScoreMax=Math.max.apply(null, compositeScoreList);
+      this.orderBSRateM5Max=Math.max.apply(null, orderBSRateM5List);
+      this.bounceRateMax=Math.max.apply(null, bounceRateList);
+      this.sdRateMax=Math.max.apply(null, sdRateList);
       this.shortrtnMax=Math.max.apply(null, shortrtnList);
       this.middlertnMax=Math.max.apply(null, middlertnList);
       this.longrtnMax=Math.max.apply(null, longrtnList);
-      this.compositeScoreRankAvgMax=Math.max.apply(null, compositeScoreRankAvgList);
-      this.weightedOrderBSRateAvgMax=Math.max.apply(null, weightedOrderBSRateAvgList);
-      this.transBsRateAvgMax=Math.max.apply(null, transBsRateAvgList);
-      this.sdRateMax=Math.max.apply(null, sdRateList);
-      this.compositeScoreAvgMax=Math.max.apply(null, compositeScoreAvgList);
+      
       this.rankWeightMin=Math.min.apply(null, rankWeightList);
-      this.showCountMin=Math.min.apply(null, showCountList);
+      this.orderBSRateMin=Math.min.apply(null, orderBSRateList);
+      // console.log(this.orderBSRateMin);
+      this.weightedOrderBSRateMin=Math.min.apply(null, weightedOrderBSRateList);
+      this.transBsRateMin=Math.min.apply(null, transBsRateList);
+      this.compositeScoreMin=Math.min.apply(null, compositeScoreList);
+      this.orderBSRateM5Min=Math.min.apply(null, orderBSRateM5List);
+      this.bounceRateMin=Math.min.apply(null, bounceRateList);
+      this.sdRateMin=Math.min.apply(null, sdRateList);
       this.shortrtnMin=Math.min.apply(null, shortrtnList);
       this.middlertnMin=Math.min.apply(null, middlertnList);
       this.longrtnMin=Math.min.apply(null, longrtnList);
-      this.compositeScoreRankAvgMin=Math.min.apply(null, compositeScoreRankAvgList);
-      this.weightedOrderBSRateAvgMin=Math.min.apply(null, weightedOrderBSRateAvgList);
-      this.transBsRateAvgMin=Math.min.apply(null, transBsRateAvgList);
-      this.sdRateMin=Math.min.apply(null, sdRateList);
-      this.compositeScoreAvgMin=Math.min.apply(null, compositeScoreAvgList);
-      // console.log(this.rankWeightMin)
-      // console.log(this.showCountMin)
-      // console.log(this.shortrtnMin)
-      // console.log(this.middlertnMin)
-      // console.log(this.longrtnMin)
-      // console.log(this.rankWeightMax)
-      // console.log(this.showCountMax)
-      // console.log(this.shortrtnMax)
-      // console.log(this.middlertnMax)
-      // console.log(this.longrtnMax)
+
     },
     rowClassName({row}) {
       if (row.highLimitFlag>0) {
           return 'row-purple'
+      }
+      if (row.compositeScore>=2) {
+          return 'row-red'
       }
     },
     getNowDate() {
@@ -305,81 +323,55 @@ export default {
               seconds = "0" + seconds;
           }
       this.updateTime =  year + "-" + month + "-" + day + " " + hour + sign2 + minutes + sign2 + seconds;
-    },
-    setHighLimit() {
-           if (this.showHighLimit=="计入") {
-            this.showHighLimit="不计入";
-            this.getCScoreRank();
-           }
-           else{
-            this.showHighLimit="计入";
-            this.getCScoreRank();
-           }  
-    },
-    setShort() {
-           if (this.showShort=="计入") {
-            this.showShort="不计入";
-            this.getCScoreRank();
-           }
-           else{
-            this.showShort="计入";
-            this.getCScoreRank();
-           }  
-    },
-    getCScoreRank(){
-      var rankValue = null;
-      if(this.showHighLimit=="不计入"){
-        rankValue="not-show";
-      }
-      else{
-        rankValue="show";
-      }
-      var shortFlag = null;
-      if(this.showShort=="不计入"){
-        shortFlag="not-show";
-      }
-      else{
-        shortFlag="show";
-      }
-      axios({
-        method:'post',
-        url:'/getCScoreRankTail',
-        params:{
-          rank:rankValue,
-          table_name:"all",
-          short_flag:shortFlag
-        }
-      }).then(response => {
-        // console.log(response.data)
-        this.tableData = response.data
-        this.getNowDate()
-        this.getFieldMaxValue(response.data)
-        // this.tableData[0].stock_name="moooo"
-        // console.log(this.tableData[0].stock_name)
-      })
-      .catch((error) => { // 请求失败处理
+     },
+    //  setSectorLong() {
+    //        if (this.sectorLong=="Long") {
+    //         this.sectorLong="ALL";
+    //         this.getPortfolioInfo();
+    //        }
+    //        else{
+    //         this.sectorLong="Long";
+    //         this.getPortfolioInfo();
+    //        }  
+    //  },
+     getPortfolioInfo(){
+        axios({
+          method:'post',
+          url:'/getMarketCSocreRank',
+          params:{
+            sort_flag:'top'
+          }
+        }).then(response => {
+          // console.log(response.data)
+          this.tableData = response.data
+          this.getNowDate()
+          this.getFieldMaxValue(response.data)
+          // this.tableData[0].stock_name="moooo"
+          // console.log(this.tableData[0].stock_name)
+        })
+        .catch((error) => { // 请求失败处理
           console.log(error)
           this.updateTime = "请求失败"
-      })
-    },
-    formatterNum ({ cellValue }) {
-      return cellValue=="暂无数据"||cellValue==null?"暂无数据":cellValue+"%"
-    } 
-     
-  }
+        })
+      },
+      formatterNum ({ cellValue }) {
+        return cellValue=="暂无数据"||cellValue==null?"暂无数据":cellValue+"%"
+      } 
+    }
 }
 
 </script>
 <template>
-  <div style="width: 2000px;">
-    <vxe-button @click="getCScoreRank()" status="primary" content="更新" style="width: 80px;"></vxe-button>
-    <vxe-button @click="setHighLimit()" status="primary" content="计入涨停" style="left:20px;"></vxe-button>
-    <vxe-button @click="setShort()" status="primary" content="计入看空" style="left:40px;"></vxe-button>
-    <!-- <button @click="getCScoreRank()" style="width: 50px;">更新</button> -->
+  <!-- <div style="width:100%;">
     
+  </div> -->
+  <div style="width:2000px;" id="app_son">
+    <vxe-button @click="getPortfolioInfo()" status="primary" content="更新" style="width: 80px;"></vxe-button>
+    <!-- <vxe-button @click="setSectorLong()" status="primary" content="切换行业" style="left:20px;"></vxe-button> -->
+    <!-- <button @click="getPortfolioInfo()" style="width: 70px;">更新</button> -->
+    <!-- <button @click="setSectorLong()" style="width: 70px;left:20px;">切换行业</button> -->
     <p>更新时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{updateTime}}</p>
-    <p>是否计入涨停&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{showHighLimit}}</p>
-    <p>是否计入看空&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{showShort}}</p>
+    <!-- <p>当前显示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{sectorLong}}</p> -->
     <vxe-table 
     class="mytable-style"
     border="full" 
@@ -394,19 +386,23 @@ export default {
       <vxe-table-column field="sw3Name" sortable title="三级行业名称"></vxe-table-column>
       <vxe-table-column field="rankNum" sortable title="行业内相对排名" sort-type="number"></vxe-table-column>
       <vxe-table-column field="rankWeight" sortable title="行业内权重" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="compositeScoreAvg" sortable title="得分均值" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="compositeScoreRankAvg" sortable title="排名均值" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="weightedOrderBSRateAvg" sortable title="加权压托比" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="transBsRateAvg" sortable title="买卖比" sort-type="number"></vxe-table-column>
-      <vxe-table-column field="showCount" sortable title="出现次数" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="orderBSRate" sortable title="压托比" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="weightedOrderBSRate" sortable title="加权压托比" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="transBsRate" sortable title="买卖比" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="compositeScore" sortable title="综合得分" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="orderBSRateSource" sortable title="压托比正负来源"></vxe-table-column>
+      <vxe-table-column field="orderBSRateChangeRate" sortable title="压托比变化率" :formatter="formatterNum" sort-type="number"></vxe-table-column>
+      <!-- <vxe-table-column field="bOrderLossRate" sortable title="买单丢单比"></vxe-table-column>
+      <vxe-table-column field="sOrderLossRate" sortable title="卖单丢单比"></vxe-table-column> -->
+      <vxe-table-column field="orderBSRateM5" sortable title="5分钟压托比" sort-type="number"></vxe-table-column>
+      <vxe-table-column field="orderBSRateM5Source" sortable title="5分钟压托比正负来源"></vxe-table-column>
+      <vxe-table-column field="bounceRate" sortable title="弹性比" sort-type="number"></vxe-table-column>
       <vxe-table-column field="sdRate" sortable title="当日涨跌幅" :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="shortrtn" sortable title="短期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="middlertn" sortable title="中期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="longrtn" sortable title="长期涨跌幅"  :formatter="formatterNum" sort-type="number"></vxe-table-column>
       <vxe-table-column field="product" sortable title="主要产品" width="200"></vxe-table-column>
-      <vxe-table-column field="highLimitFlag" sortable title="当日涨停标志"></vxe-table-column>
-      <!-- <vxe-table-column field="lowLimitFlag" sortable title="跌停标志" width="200"></vxe-table-column> -->
+      <vxe-table-column field="highLimitFlag" sortable title="涨停标志"></vxe-table-column>
     </vxe-table>
   </div>
 </template>
-

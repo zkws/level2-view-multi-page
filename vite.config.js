@@ -14,7 +14,6 @@ export default defineConfig({
           // 配置所有页面路径，使得所有页面都会被打包
           portfolio: resolve(__dirname, 'portfolio/index.html'),
           portfolio20: resolve(__dirname, 'portfolio20/index.html'),
-          portfolio50: resolve(__dirname, 'portfolio50/index.html'),
           portfolioBought: resolve(__dirname, 'portfolioBought/index.html'),
           sector_class1: resolve(__dirname, 'sector_class1/index.html'),
           sector_class2: resolve(__dirname, 'sector_class2/index.html'),
@@ -23,7 +22,11 @@ export default defineConfig({
           cScoreRank20Per: resolve(__dirname, 'cScoreRank20Per/index.html'),
           cScoreRankBought: resolve(__dirname, 'cScoreRankBought/index.html'),
           cScoreRankSelected: resolve(__dirname, 'cScoreRankSelected/index.html'),
-          cScoreRankTail: resolve(__dirname, 'cScoreRankTail/index.html')
+          cScoreRankTail: resolve(__dirname, 'cScoreRankTail/index.html'),
+          cScoreRankOverall: resolve(__dirname, 'cScoreRankOverall/index.html'),
+          cScoreRankTailOverall: resolve(__dirname, 'cScoreRankTailOverall/index.html'),
+          marketCScoreTop: resolve(__dirname, 'marketCScoreTop/index.html'),
+          marketCScoreTail: resolve(__dirname, 'marketCScoreTail/index.html')
        }
     }
  },
@@ -56,11 +59,15 @@ server: {
       target: 'http://localhost:6024/',
       changeOrigin:true
     },
-    '/getCScoreRankInScope': {
+    '/getCScoreRankByOverallRating': {
       target: 'http://localhost:6024/',
       changeOrigin:true
     },
     '/getCScoreRankTail': {
+      target: 'http://localhost:6024/',
+      changeOrigin:true
+    },
+    '/getMarketCSocreRank': {
       target: 'http://localhost:6024/',
       changeOrigin:true
     }

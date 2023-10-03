@@ -343,11 +343,12 @@ export default {
       }
       axios({
         method:'post',
-        url:'/getCScoreRankTail',
+        url:'/getCScoreRankByOverallRating',
         params:{
           rank:rankValue,
           table_name:"all",
-          short_flag:shortFlag
+          short_flag:shortFlag,
+          sort_flag:"tail"
         }
       }).then(response => {
         // console.log(response.data)
