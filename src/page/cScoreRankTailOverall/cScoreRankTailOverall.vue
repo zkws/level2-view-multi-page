@@ -345,7 +345,7 @@ export default {
         method:'post',
         url:'/getCScoreRankByOverallRating',
         params:{
-          rank:rankValue,
+          high_limit_show:rankValue,
           table_name:"all",
           short_flag:shortFlag,
           sort_flag:"tail"
