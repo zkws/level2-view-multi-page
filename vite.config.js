@@ -25,6 +25,7 @@ export default defineConfig({
           cScoreRankTail: resolve(__dirname, 'cScoreRankTail/index.html'),
           cScoreRankOverall: resolve(__dirname, 'cScoreRankOverall/index.html'),
           cScoreRankTailOverall: resolve(__dirname, 'cScoreRankTailOverall/index.html'),
+          cScoreRankOverallBought: resolve(__dirname, 'cScoreRankOverallBought/index.html'),
           marketCScoreTop: resolve(__dirname, 'marketCScoreTop/index.html'),
           marketCScoreTail: resolve(__dirname, 'marketCScoreTail/index.html')
        }
