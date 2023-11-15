@@ -24,6 +24,7 @@ export default defineConfig({
           cScoreRankSelected: resolve(__dirname, 'cScoreRankSelected/index.html'),
           cScoreRankTail: resolve(__dirname, 'cScoreRankTail/index.html'),
           cScoreRankOverall: resolve(__dirname, 'cScoreRankOverall/index.html'),
+          cScoreRankOverallShort: resolve(__dirname, 'cScoreRankOverallShort/index.html'),
           cScoreRankTailOverall: resolve(__dirname, 'cScoreRankTailOverall/index.html'),
           cScoreRankOverallBought: resolve(__dirname, 'cScoreRankOverallBought/index.html'),
           marketCScoreTop: resolve(__dirname, 'marketCScoreTop/index.html'),
@@ -61,6 +62,10 @@ server: {
       changeOrigin:true
     },
     '/getCScoreRankByOverallRating': {
+      target: 'http://localhost:6024/',
+      changeOrigin:true
+    },
+    '/getCScoreRankByOverallRatingThreshold': {
       target: 'http://localhost:6024/',
       changeOrigin:true
     },
