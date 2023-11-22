@@ -132,7 +132,7 @@ export default {
   },
   mounted() {
     this.showHighLimit = "不计入"
-    this.showShort = "不计入"
+    this.showShort = "计入"
     this.getCScoreRank();
     this.timer = setInterval(this.getCScoreRank, 60000)
     this.getNowDate()
