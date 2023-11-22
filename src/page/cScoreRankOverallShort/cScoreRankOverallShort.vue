@@ -137,7 +137,7 @@ export default {
     this.showHighLimit = "不计入"
     this.currentFCap=0
     this.targetFCap=0
-    this.showShort = "不计入"
+    this.showShort = "计入"
     this.getCScoreRank();
     this.timer = setInterval(this.getCScoreRank, 60000)
     this.getNowDate()
@@ -360,7 +360,8 @@ export default {
           table_name:"mt_list",
           short_flag:shortFlag,
           sort_flag:"top",
-          threshold:thresholdValue
+          threshold:thresholdValue,
+          page_name:"T融券两极"
         }
       }).then(response => {
         // console.log(response.data)
