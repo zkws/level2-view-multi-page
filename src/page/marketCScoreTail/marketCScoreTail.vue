@@ -337,7 +337,7 @@ export default {
      getPortfolioInfo(){
         axios({
           method:'post',
-          url:'/getMarketCSocreRank',
+          url:'/getMarketCScoreRank',
           params:{
             sort_flag:'tail'
           }

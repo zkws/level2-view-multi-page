@@ -27,8 +27,10 @@ export default defineConfig({
           cScoreRankOverallShort: resolve(__dirname, 'cScoreRankOverallShort/index.html'),
           cScoreRankTailOverall: resolve(__dirname, 'cScoreRankTailOverall/index.html'),
           cScoreRankOverallBought: resolve(__dirname, 'cScoreRankOverallBought/index.html'),
+          cScoreRankOverallSingleStk: resolve(__dirname, 'cScoreRankOverallSingleStk/index.html'),
           marketCScoreTop: resolve(__dirname, 'marketCScoreTop/index.html'),
-          marketCScoreTail: resolve(__dirname, 'marketCScoreTail/index.html')
+          marketCScoreTail: resolve(__dirname, 'marketCScoreTail/index.html'),
+          marketCScoreExtreme: resolve(__dirname, 'marketCScoreExtreme/index.html')
        }
     }
  },
@@ -73,7 +75,11 @@ server: {
       target: 'http://localhost:6024/',
       changeOrigin:true
     },
-    '/getMarketCSocreRank': {
+    '/getMarketCScoreRank': {
+      target: 'http://localhost:6024/',
+      changeOrigin:true
+    },
+    '/getSingleCScoreRankGlobal': {
       target: 'http://localhost:6024/',
       changeOrigin:true
     }

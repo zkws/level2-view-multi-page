@@ -339,7 +339,7 @@ export default {
           method:'post',
           url:'/getMarketCScoreRank',
           params:{
-            sort_flag:'top'
+            page_name:'S市场两极'
           }
         }).then(response => {
           // console.log(response.data)

@@ -331,7 +331,7 @@ export default {
           high_limit_show:rankValue,
           table_name:"bought",
           short_flag:"show",
-          sort_flag:"top"
+          page_name:"S实际持股两极"
         }
       }).then(response => {
         console.log(response.data)

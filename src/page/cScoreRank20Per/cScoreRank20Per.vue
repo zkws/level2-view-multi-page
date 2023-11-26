@@ -330,6 +330,7 @@ export default {
           high_limit_show:rankValue,
           table_name:"20Per",
           short_flag:"show",
+          page_name:"R行业前20%",
           sort_flag:"top"
         }
       }).then(response => {

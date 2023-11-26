@@ -348,7 +348,7 @@ export default {
           high_limit_show:rankValue,
           table_name:"all",
           short_flag:shortFlag,
-          sort_flag:"top"
+          page_name:"T市场两极"
         }
       }).then(response => {
         // console.log(response.data)
