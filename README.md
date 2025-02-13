@@ -1,29 +1,25 @@
-# level2-view-multi-page
+**Securities Market Data Dashboard(Vue3 + vxe-table)**
 
-This template should help get you started developing with Vue 3 in Vite.
+Real-time visualization system for securities Level2 market data, leveraging vxe-table's advanced features for high-frequency financial data presentation.
 
-## Recommended IDE Setup
+📈 Core Modules:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+• Real-time order book reconstruction 
 
-## Customize configuration
+• Tick data stream processing
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+• Column virtualization for 50+ dynamic indicators
 
-## Project Setup
+• Reactive data binding via Vue3 Composition API
 
-```sh
-npm install
-```
+[![Vue3](https://img.shields.io/badge/Vue-3.3.4-brightgreen)](https://vuejs.org/)
 
-### Compile and Hot-Reload for Development
+[![vxe-table](https://img.shields.io/badge/vxe--table-4.5.6-blue)](https://vxetable.cn/)
 
-```sh
-npm run dev
-```
+*Integrated with CITIC's proprietary data API, compliant with CITIC data security regulations.*
 
-### Compile and Minify for Production
+*Data Source: CITIC Securities L2 feed *
 
-```sh
-npm run build
-```
+This implementation demonstrates enterprise-grade Java solutions for institutional-grade market data processing.
+
+
